@@ -15,9 +15,9 @@ import org.springframework.util.CollectionUtils;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class SpuService {
@@ -75,6 +75,35 @@ public class SpuService {
         if(count != 1){
             throw new LyException(ExceptionEnum.GOODS_ADD_ERROR);
         }
+        saveSkuAndStock(spu);
+    }
+
+    @Transactional
+    public void updateGoods(Spu spu) {
+        Sku sku = new Sku();
+        sku.setSpuId(spu.getId());
+        List<Sku> skus = skuMapper.select(sku);
+        if(!CollectionUtils.isEmpty(skus)){
+            skuMapper.delete(sku);
+            List<Long> ids = skus.stream().map(Sku::getId).collect(Collectors.toList());
+            stockMapper.deleteByIdList(ids);
+        }
+        spu.setValid(null);
+        spu.setSaleable(null);
+        spu.setCreateTime(null);
+        spu.setLastUpdateTime(new Date());
+        int count = spuMapper.updateByPrimaryKeySelective(spu);
+        if(count != 1){
+            throw new LyException(ExceptionEnum.GOODS_UPDATE_ERROR);
+        }
+        count = spuDetailMapper.updateByPrimaryKeySelective(spu.getSpuDetail());
+        if(count != 1){
+            throw new LyException(ExceptionEnum.GOODS_UPDATE_ERROR);
+        }
+        saveSkuAndStock(spu);
+    }
+
+    public void saveSkuAndStock(Spu spu){
         List<Sku> skus = spu.getSkus();
         List<Stock> stockList= new ArrayList<>();
         for (Sku sku : skus) {
@@ -85,7 +114,7 @@ public class SpuService {
             sku.setSpuId(spu.getId());
             sku.setCreateTime(new Date());
             sku.setLastUpdateTime(sku.getCreateTime());
-            count = skuMapper.insert(sku);
+            int count = skuMapper.insert(sku);
             if(count != 1){
                 throw new LyException(ExceptionEnum.GOODS_ADD_ERROR);
             }
@@ -95,6 +124,9 @@ public class SpuService {
             stock.setStock(sku.getStock());
             stockList.add(stock);
         }
-        stockMapper.insertList(stockList);
+        int count = stockMapper.insertList(stockList);
+        if(count != stockList.size()){
+            throw new LyException(ExceptionEnum.GOODS_ADD_ERROR);
+        }
     }
 }
