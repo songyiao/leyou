@@ -4,6 +4,7 @@ import com.leyou.common.vo.PageResult;
 import com.leyou.item.pojo.Spu;
 import com.leyou.item.service.SpuService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,5 +24,15 @@ public class GoodsController {
         return ResponseEntity.ok(spuService.querySpuList(page,rows,saleable,key));
     }
 
+    @PostMapping("goods")
+    public ResponseEntity<Void> saveGoode(@RequestBody Spu spu){
 
+        try {
+            spuService.saveGoods(spu);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

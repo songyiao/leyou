@@ -16,7 +16,8 @@ public enum ExceptionEnum {
     BRAND_UPDATE_FAIL(500,"品牌修改失败!"),
     GROUP_NOT_FOUND(404,"分组信息未查到!"),
     PARAMS_NOT_FOUND(404,"规格参数未查到!"),
-    GOODS_NOT_FOUND(404,"商品未找到!")
+    GOODS_NOT_FOUND(404,"商品未找到!"),
+    GOODS_ADD_ERROR(500,"商品新增失败!")
     ;
     private int code;
     private String msg;
