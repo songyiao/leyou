@@ -35,7 +35,7 @@ public class SpecController {
     public ResponseEntity<List<SpecParam>> querySpecParamList(
             @RequestParam(name = "gid",required = false)Long gid,
             @RequestParam(name = "cid",required = false)Long cid,
-            @RequestParam(name = "gid",required = false)Boolean searching
+            @RequestParam(name = "searching",required = false)Boolean searching
     ){
         List<SpecParam> specParamList = specParamService.querySpecParamList(gid,cid,searching);
         if(CollectionUtils.isEmpty(specParamList)){
