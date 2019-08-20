@@ -69,6 +69,7 @@ public class BrandService {
         if(CollectionUtils.isEmpty(list)){
             throw new LyException(ExceptionEnum.BRAND_NOT_FOUD);
         }
+
         return list;
     }
 
