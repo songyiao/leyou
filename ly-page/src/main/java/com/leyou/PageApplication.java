@@ -2,15 +2,13 @@ package com.leyou;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
-import tk.mybatis.spring.annotation.MapperScan;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 @EnableDiscoveryClient
-@MapperScan("com.leyou.item.mapper")
-public class LyItemService {
+public class PageApplication {
     public static void main(String[] args) {
-        SpringApplication.run(LyItemService.class);
+        SpringApplication.run(PageApplication.class);
     }
 }
