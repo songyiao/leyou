@@ -16,11 +16,12 @@ zuul:
   retryable: false
   routes:
     item-service: /item/**
+    user-service: /user/**
   ignored-services:
       - upload-service # 忽略upload-service服务,上传文件不经过网关
 ribbon:
-  ConnectTimeout: 1000 # 连接超时时间(ms)
-  ReadTimeout: 3000 # 通信超时时间(ms)
+  ConnectTimeout: 10000 # 连接超时时间(ms)
+  ReadTimeout: 30000 # 通信超时时间(ms)
   MaxAutoRetriesNextServer: 0 # 同一服务不同实例的重试次数
   MaxAutoRetries: 0 # 同一实例的重试次数
 hystrix:
@@ -29,4 +30,4 @@ hystrix:
       execution:
         isolation:
           thread:
-            timeoutInMillisecond: 5000 # 熔断超时时长：10000ms
+            timeoutInMillisecond: 60000 # 熔断超时时长：10000ms

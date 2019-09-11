@@ -3,9 +3,7 @@ package com.leyou.item.mapper;
 import com.leyou.item.pojo.Category;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
-import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.additional.idlist.IdListMapper;
-import tk.mybatis.mapper.common.IdsMapper;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;

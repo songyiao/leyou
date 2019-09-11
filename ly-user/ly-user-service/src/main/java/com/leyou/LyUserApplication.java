@@ -7,9 +7,9 @@ import tk.mybatis.spring.annotation.MapperScan;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@MapperScan("com.leyou.item.mapper")
-public class LyItemService {
+@MapperScan("com.leyou.user.mapper")
+public class LyUserApplication {
     public static void main(String[] args) {
-        SpringApplication.run(LyItemService.class);
+        SpringApplication.run(LyUserApplication.class);
     }
 }

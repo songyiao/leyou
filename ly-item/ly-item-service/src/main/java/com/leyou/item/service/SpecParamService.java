@@ -13,7 +13,7 @@ public class SpecParamService {
     @Autowired
     private SpecParamMapper specParamMapper;
 
-    public List<SpecParam> querySpecParamList(Long gid,Long cid,Boolean searching) {
+    public List<SpecParam> querySpecParamList(Long gid, Long cid, Boolean searching) {
         SpecParam specParam = new SpecParam();
         specParam.setGroupId(gid);
         specParam.setCid(cid);
